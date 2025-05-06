@@ -1,0 +1,77 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Document Search API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/documents/": {
+      "get": {
+        "summary": "Получить список документов",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "example": [{"id": "1", "rubrics": {"category": "test"}, "text": "Текст", "created_date": "2025-05-06T12:00:00Z"}]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/documents/search/": {
+      "get": {
+        "summary": "Поиск документов",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Текст запроса",
+            "required": true,
+            "schema": {"type": "string"}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный поиск",
+            "content": {
+              "application/json": {
+                "example": [{"id": "1", "rubrics": {"category": "test"}, "text": "Текст", "created_date": "2025-05-06T12:00:00Z"}]
+              }
+            }
+          },
+          "400": {
+            "description": "Отсутствует параметр q",
+            "content": {
+              "application/json": {
+                "example": {"error": "Query parameter 'q' is required"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/documents/{id}/": {
+      "delete": {
+        "summary": "Удалить документ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {"type": "string"}
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Успешное удаление"
+          },
+          "404": {
+            "description": "Документ не найден"
+          }
+        }
+      }
+    }
+  }
+}
